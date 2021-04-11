@@ -1,0 +1,82 @@
+{
+  "name": "Plant",
+  "fields": [
+    {
+      "fieldName": "scientificName",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "synonym",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "localName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "englishName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "voucherNumber",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "picture",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    },
+    {
+      "fieldName": "botanicalDescription",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "therapeuticUses",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "usedParts",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "preparation",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "pharmacologicalActivities",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "majorPhytochemicals",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "ecologicalStatus",
+      "otherEntityRelationshipName": "plant",
+      "relationshipName": "ecologicalStatus",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "family",
+      "otherEntityRelationshipName": "plants",
+      "relationshipValidateRules": "required",
+      "relationshipName": "family"
+    }
+  ],
+  "entityTableName": "plant",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210411155532"
+}

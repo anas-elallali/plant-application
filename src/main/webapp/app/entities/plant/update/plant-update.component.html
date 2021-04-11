@@ -1,0 +1,227 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-plant-heading" data-cy="PlantCreateUpdateHeading">Create or edit a Plant</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_scientificName">Scientific Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="scientificName"
+            id="field_scientificName"
+            data-cy="scientificName"
+            formControlName="scientificName"
+          />
+          <div
+            *ngIf="
+              editForm.get('scientificName')!.invalid && (editForm.get('scientificName')!.dirty || editForm.get('scientificName')!.touched)
+            "
+          >
+            <small class="form-text text-danger" *ngIf="editForm.get('scientificName')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_synonym">Synonym</label>
+          <input type="text" class="form-control" name="synonym" id="field_synonym" data-cy="synonym" formControlName="synonym" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_localName">Local Name</label>
+          <input type="text" class="form-control" name="localName" id="field_localName" data-cy="localName" formControlName="localName" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_englishName">English Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="englishName"
+            id="field_englishName"
+            data-cy="englishName"
+            formControlName="englishName"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_voucherNumber">Voucher Number</label>
+          <input
+            type="text"
+            class="form-control"
+            name="voucherNumber"
+            id="field_voucherNumber"
+            data-cy="voucherNumber"
+            formControlName="voucherNumber"
+          />
+          <div
+            *ngIf="
+              editForm.get('voucherNumber')!.invalid && (editForm.get('voucherNumber')!.dirty || editForm.get('voucherNumber')!.touched)
+            "
+          >
+            <small class="form-text text-danger" *ngIf="editForm.get('voucherNumber')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_picture">Picture</label>
+          <div>
+            <img
+              [src]="'data:' + editForm.get('pictureContentType')!.value + ';base64,' + editForm.get('picture')!.value"
+              style="max-height: 100px"
+              *ngIf="editForm.get('picture')!.value"
+              alt="plant image"
+            />
+            <div *ngIf="editForm.get('picture')!.value" class="form-text text-danger clearfix">
+              <span class="pull-left">{{ editForm.get('pictureContentType')!.value }}, {{ byteSize(editForm.get('picture')!.value) }}</span>
+              <button
+                type="button"
+                (click)="clearInputImage('picture', 'pictureContentType', 'file_picture')"
+                class="btn btn-secondary btn-xs pull-right"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input type="file" id="file_picture" data-cy="picture" (change)="setFileData($event, 'picture', true)" accept="image/*" />
+          </div>
+          <input type="hidden" class="form-control" name="picture" id="field_picture" data-cy="picture" formControlName="picture" />
+          <input
+            type="hidden"
+            class="form-control"
+            name="pictureContentType"
+            id="field_pictureContentType"
+            formControlName="pictureContentType"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_botanicalDescription">Botanical Description</label>
+          <input
+            type="text"
+            class="form-control"
+            name="botanicalDescription"
+            id="field_botanicalDescription"
+            data-cy="botanicalDescription"
+            formControlName="botanicalDescription"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_therapeuticUses">Therapeutic Uses</label>
+          <input
+            type="text"
+            class="form-control"
+            name="therapeuticUses"
+            id="field_therapeuticUses"
+            data-cy="therapeuticUses"
+            formControlName="therapeuticUses"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_usedParts">Used Parts</label>
+          <input type="text" class="form-control" name="usedParts" id="field_usedParts" data-cy="usedParts" formControlName="usedParts" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_preparation">Preparation</label>
+          <input
+            type="text"
+            class="form-control"
+            name="preparation"
+            id="field_preparation"
+            data-cy="preparation"
+            formControlName="preparation"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_pharmacologicalActivities">Pharmacological Activities</label>
+          <input
+            type="text"
+            class="form-control"
+            name="pharmacologicalActivities"
+            id="field_pharmacologicalActivities"
+            data-cy="pharmacologicalActivities"
+            formControlName="pharmacologicalActivities"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_majorPhytochemicals">Major Phytochemicals</label>
+          <input
+            type="text"
+            class="form-control"
+            name="majorPhytochemicals"
+            id="field_majorPhytochemicals"
+            data-cy="majorPhytochemicals"
+            formControlName="majorPhytochemicals"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_ecologicalStatus">Ecological Status</label>
+          <select
+            class="form-control"
+            id="field_ecologicalStatus"
+            data-cy="ecologicalStatus"
+            name="ecologicalStatus"
+            formControlName="ecologicalStatus"
+          >
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                ecologicalStatusOption.id === editForm.get('ecologicalStatus')!.value?.id
+                  ? editForm.get('ecologicalStatus')!.value
+                  : ecologicalStatusOption
+              "
+              *ngFor="let ecologicalStatusOption of ecologicalStatusesCollection; trackBy: trackEcologicalStatusById"
+            >
+              {{ ecologicalStatusOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_family">Family</label>
+          <select class="form-control" id="field_family" data-cy="family" name="family" formControlName="family">
+            <option *ngIf="!editForm.get('family')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="familyOption.id === editForm.get('family')!.value?.id ? editForm.get('family')!.value : familyOption"
+              *ngFor="let familyOption of familiesSharedCollection; trackBy: trackFamilyById"
+            >
+              {{ familyOption.id }}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['family'])!.invalid && (editForm.get(['family'])!.dirty || editForm.get(['family'])!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get(['family'])?.errors?.required"> This field is required. </small>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

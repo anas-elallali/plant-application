@@ -42,7 +42,9 @@
     "jwtSecretKey": "NzJkMWRhMDhiYjllMDcxODc2N2NlNDc3MzQzY2RhMGUyOTNjY2I2ZWI1Njc2ZjZjODRmNTMwNGJlMDgxYTMzYmU3YzkzODc5NTEyNzUzMWUwNTJjOTQ0N2NjN2FlNzAyOTgzNDY2MTNmM2M0NTE0MWY3NGIwMGFhNTVkNDBiMWQ=",
     "clientTheme": "none",
     "clientThemeVariant": "",
-    "reactive": false
+    "reactive": false,
+    "entities": ["Family", "EcologicalStatus", "Plant"],
+    "lastLiquibaseTimestamp": 1618156532000
   },
   "git-provider": "GitHub",
   "git-company": "anas-elallali",
