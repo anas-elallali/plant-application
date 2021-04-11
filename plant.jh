@@ -1,0 +1,39 @@
+
+entity Family {
+    name String required,
+}
+
+enum EcologicalStatusType {
+    Spontaneous,
+    Cultivated,
+    Imported
+}
+
+entity EcologicalStatus {
+	name EcologicalStatusType required,
+}
+
+entity Plant {
+	scientificName String required,
+    synonym String,
+    localName String,
+    englishName String,
+    voucherNumber String required unique,
+    picture ImageBlob,
+    botanicalDescription String,
+    therapeuticUses String,
+    usedParts String,
+    preparation String,
+    pharmacologicalActivities String,
+    majorPhytochemicals String
+}
+
+relationship ManyToOne {
+  Plant{family required} to Family{plants}
+}
+
+relationship OneToOne {
+  Plant{ecologicalStatus} to EcologicalStatus
+}
+
+paginate * with pagination

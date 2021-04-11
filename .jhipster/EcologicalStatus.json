@@ -1,0 +1,22 @@
+{
+  "name": "EcologicalStatus",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "EcologicalStatusType",
+      "fieldValues": "Spontaneous,Cultivated,Imported",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [],
+  "entityTableName": "ecological_status",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210411155531"
+}

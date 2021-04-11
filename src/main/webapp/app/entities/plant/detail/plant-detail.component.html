@@ -1,0 +1,93 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="plant">
+      <h2 data-cy="plantDetailsHeading"><span>Plant</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ plant.id }}</span>
+        </dd>
+        <dt><span>Scientific Name</span></dt>
+        <dd>
+          <span>{{ plant.scientificName }}</span>
+        </dd>
+        <dt><span>Synonym</span></dt>
+        <dd>
+          <span>{{ plant.synonym }}</span>
+        </dd>
+        <dt><span>Local Name</span></dt>
+        <dd>
+          <span>{{ plant.localName }}</span>
+        </dd>
+        <dt><span>English Name</span></dt>
+        <dd>
+          <span>{{ plant.englishName }}</span>
+        </dd>
+        <dt><span>Voucher Number</span></dt>
+        <dd>
+          <span>{{ plant.voucherNumber }}</span>
+        </dd>
+        <dt><span>Picture</span></dt>
+        <dd>
+          <div *ngIf="plant.picture">
+            <a (click)="openFile(plant.picture, plant.pictureContentType)">
+              <img [src]="'data:' + plant.pictureContentType + ';base64,' + plant.picture" style="max-width: 100%" alt="plant image" />
+            </a>
+            {{ plant.pictureContentType }}, {{ byteSize(plant.picture) }}
+          </div>
+        </dd>
+        <dt><span>Botanical Description</span></dt>
+        <dd>
+          <span>{{ plant.botanicalDescription }}</span>
+        </dd>
+        <dt><span>Therapeutic Uses</span></dt>
+        <dd>
+          <span>{{ plant.therapeuticUses }}</span>
+        </dd>
+        <dt><span>Used Parts</span></dt>
+        <dd>
+          <span>{{ plant.usedParts }}</span>
+        </dd>
+        <dt><span>Preparation</span></dt>
+        <dd>
+          <span>{{ plant.preparation }}</span>
+        </dd>
+        <dt><span>Pharmacological Activities</span></dt>
+        <dd>
+          <span>{{ plant.pharmacologicalActivities }}</span>
+        </dd>
+        <dt><span>Major Phytochemicals</span></dt>
+        <dd>
+          <span>{{ plant.majorPhytochemicals }}</span>
+        </dd>
+        <dt><span>Ecological Status</span></dt>
+        <dd>
+          <div *ngIf="plant.ecologicalStatus">
+            <a [routerLink]="['/ecological-status', plant.ecologicalStatus?.id, 'view']">{{ plant.ecologicalStatus?.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Family</span></dt>
+        <dd>
+          <div *ngIf="plant.family">
+            <a [routerLink]="['/family', plant.family?.id, 'view']">{{ plant.family?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/plant', plant.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>
