@@ -20,8 +20,7 @@ const plantRoute: Routes = [
     component: PlantDetailComponent,
     resolve: {
       plant: PlantRoutingResolveService,
-    },
-    canActivate: [UserRouteAccessService],
+    }
   },
   {
     path: 'new',

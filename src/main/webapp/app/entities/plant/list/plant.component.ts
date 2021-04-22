@@ -39,7 +39,6 @@ export class PlantComponent implements OnInit {
   ) {}
 
   loadPage(page?: number, dontNavigate?: boolean): void {
-  console.log("AEL ",this.value, this.searchKey)
     this.isLoading = true;
     const pageToLoad: number = page ?? this.page ?? 1;
 

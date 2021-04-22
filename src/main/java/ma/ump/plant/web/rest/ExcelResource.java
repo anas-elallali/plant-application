@@ -59,19 +59,6 @@ public class ExcelResource {
                 else{
                     family = familyRepository.save(new Family().name(familyNameString));
                 }
-                log.debug("AEL "+row.getCell(0).getStringCellValue());
-                log.debug("AEL "+row.getCell(1).getStringCellValue());
-                log.debug("AEL "+row.getCell(2).getStringCellValue());
-                log.debug("AEL "+row.getCell(3).getStringCellValue());
-                log.debug("AEL "+row.getCell(4).getStringCellValue());
-                log.debug("AEL "+row.getCell(5).getStringCellValue());
-                log.debug("AEL "+row.getCell(6).getStringCellValue());
-                log.debug("AEL "+row.getCell(7).getStringCellValue());
-                log.debug("AEL "+row.getCell(8).getStringCellValue());
-                log.debug("AEL "+row.getCell(9).getStringCellValue());
-                log.debug("AEL "+row.getCell(10).getStringCellValue());
-                log.debug("AEL "+row.getCell(11).getStringCellValue());
-                log.debug("AEL "+row.getCell(12).getStringCellValue());
 
                 Plant plant = new Plant();
                 plant.scientificName(row.getCell(1).getStringCellValue())

@@ -39,7 +39,6 @@ export class UploadExcelComponent {
   }
 
   onFileSelected(file: any): void {
-    console.log("AEL file", file);
     this.files = file ? [file] : [];
     //const file: File = event.target.files[0];
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition

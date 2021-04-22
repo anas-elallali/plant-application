@@ -169,7 +169,7 @@ public class FamilyResource {
      * @param id the id of the family to retrieve.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the family, or with status {@code 404 (Not Found)}.
      */
-    @GetMapping("/families/{id}")
+    @GetMapping("/public/families/{id}")
     public ResponseEntity<Family> getFamily(@PathVariable Long id) {
         log.debug("REST request to get Family : {}", id);
         Optional<Family> family = familyRepository.findById(id);
