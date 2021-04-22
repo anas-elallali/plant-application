@@ -20,23 +20,6 @@
     "project": "./tsconfig.json"
   },
   "rules": {
-    "@angular-eslint/component-selector": [
-      "error",
-      {
-        "type": "element",
-        "prefix": "jhi",
-        "style": "kebab-case"
-      }
-    ],
-    "@angular-eslint/directive-selector": [
-      "error",
-      {
-        "type": "attribute",
-        "prefix": "jhi",
-        "style": "camelCase"
-      }
-    ],
-    "@angular-eslint/relative-url-prefix": "error",
     "@typescript-eslint/ban-types": [
       "error",
       {
@@ -86,7 +69,6 @@
     "guard-for-in": "error",
     "no-bitwise": "error",
     "no-caller": "error",
-    "no-console": ["error", { "allow": ["warn", "error"] }],
     "no-eval": "error",
     "no-labels": "error",
     "no-new": "error",

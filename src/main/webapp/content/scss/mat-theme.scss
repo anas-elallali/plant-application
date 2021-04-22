@@ -1,0 +1,19 @@
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+$healysa-primary: mat-palette($mat-teal);
+
+$healysa-accent:  mat-palette($mat-brown);
+
+$healysa-warn:    mat-palette($mat-deep-orange);
+
+$healysa-theme: mat-light-theme((
+  color: (
+    primary: $healysa-primary,
+    accent: $healysa-accent,
+    warn: $healysa-warn,
+  )
+));
+
+@include angular-material-theme($healysa-theme);

@@ -13,6 +13,7 @@ export type EntityArrayResponseType = HttpResponse<IPlant[]>;
 @Injectable({ providedIn: 'root' })
 export class PlantService {
   public resourceUrl = this.applicationConfigService.getEndpointFor('api/plants');
+  public resourcePublicUrl = this.applicationConfigService.getEndpointFor('api/public/plants');
 
   constructor(protected http: HttpClient, private applicationConfigService: ApplicationConfigService) {}
 
@@ -29,12 +30,17 @@ export class PlantService {
   }
 
   find(id: number): Observable<EntityResponseType> {
-    return this.http.get<IPlant>(`${this.resourceUrl}/${id}`, { observe: 'response' });
+    return this.http.get<IPlant>(`${this.resourcePublicUrl}/${id}`, { observe: 'response' });
+  }
+
+  findAllByFamilyId(familyId: number, req?: any): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http.get<IPlant[]>(`${this.resourcePublicUrl}/family/${familyId}`, { params: options, observe: 'response' });
   }
 
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
-    return this.http.get<IPlant[]>(this.resourceUrl, { params: options, observe: 'response' });
+    return this.http.get<IPlant[]>(this.resourcePublicUrl, { params: options, observe: 'response' });
   }
 
   delete(id: number): Observable<HttpResponse<{}>> {

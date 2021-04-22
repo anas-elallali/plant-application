@@ -4,10 +4,41 @@
   <router-outlet name="navbar"></router-outlet>
 </div>
 
-<div class="container-fluid">
-  <div class="card jh-card">
-    <router-outlet></router-outlet>
-  </div>
 
-  <jhi-footer></jhi-footer>
+<div class="content container-fluid">
+  <div class="row p-0 m-0">
+    <div class="side-bar col-3">
+      <mat-nav-list>
+        <mat-list-item *jhiHasAnyAuthority="'ROLE_ADMIN'" routerLink="/upload-excel">
+          <fa-icon mat-list-icon [icon]="faUpload"></fa-icon>
+          <h4 mat-line >Upload Data (Excel)</h4>
+        </mat-list-item>
+        <mat-list-item *jhiHasAnyAuthority="'ROLE_ADMIN'" routerLink="/family/new">
+          <fa-icon mat-list-icon icon="plus"></fa-icon>
+          <h4 mat-line >Add new Family</h4>
+        </mat-list-item>
+      </mat-nav-list>
+      <mat-expansion-panel *ngIf="families && families.length > 0" (opened)="panelOpenState = true"
+                           (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <div class="menu-item">
+
+            <fa-icon mat-list-icon class="menu-item-icon" [icon]="faFan"></fa-icon>
+            <h4 mat-line class="menu-item-title">Families</h4>
+          </div>
+        </mat-expansion-panel-header>
+        <mat-nav-list >
+          <mat-list-item class="item-expansion" *ngFor="let family of families"
+                         [routerLink]="['/plant/family', family?.id]">
+            <h4 mat-line >{{family.name}}</h4>
+          </mat-list-item>
+        </mat-nav-list>
+
+      </mat-expansion-panel>
+    </div>
+
+    <div class="offset-sm-3 col-9 pages-content">
+        <router-outlet></router-outlet>
+    </div>
+  </div>
 </div>

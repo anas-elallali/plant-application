@@ -187,10 +187,42 @@ public class PlantResource {
      * @param pageable the pagination information.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of plants in body.
      */
-    @GetMapping("/plants")
+    @GetMapping("/public/plants")
     public ResponseEntity<List<Plant>> getAllPlants(Pageable pageable) {
         log.debug("REST request to get a page of Plants");
         Page<Plant> page = plantRepository.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    @GetMapping("/public/plants/family/{id}")
+    public ResponseEntity<List<Plant>> getAllPlantsByFamily(
+        @PathVariable Long id,
+        @RequestParam(required=false) String searchKey,
+        @RequestParam(required=false) String value,
+        Pageable pageable) {
+        log.debug("REST request to get a page of Plants");
+
+        Page<Plant> page;
+
+        switch (searchKey){
+            case "localName":
+
+                page = plantRepository.findByFamilyIdAndLocalNameContainingIgnoreCase(id, value, pageable);
+                break;
+            case "voucherNumber":
+                page = plantRepository.findByFamilyIdAndVoucherNumberContainingIgnoreCase(id, value, pageable);
+                break;
+            case "englishName":
+                page = plantRepository.findByFamilyIdAndEnglishNameContainingIgnoreCase(id, value, pageable);
+                break;
+            case "scientificName":
+                page = plantRepository.findByFamilyIdAndScientificNameContainingIgnoreCase(id, value, pageable);
+                break;
+            default:
+                page = plantRepository.findByFamilyId(id, pageable);
+        }
+
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
@@ -201,7 +233,7 @@ public class PlantResource {
      * @param id the id of the plant to retrieve.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the plant, or with status {@code 404 (Not Found)}.
      */
-    @GetMapping("/plants/{id}")
+    @GetMapping("/public/plants/{id}")
     public ResponseEntity<Plant> getPlant(@PathVariable Long id) {
         log.debug("REST request to get Plant : {}", id);
         Optional<Plant> plant = plantRepository.findById(id);

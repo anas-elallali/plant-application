@@ -23,7 +23,7 @@ describe('Service Tests', () => {
 
       elemDefault = {
         id: 0,
-        name: EcologicalStatusType.Spontaneous,
+        name: EcologicalStatusType.Spontaneous.toString(),
       };
     });
 

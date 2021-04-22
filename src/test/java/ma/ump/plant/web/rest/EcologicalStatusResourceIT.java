@@ -30,8 +30,8 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class EcologicalStatusResourceIT {
 
-    private static final EcologicalStatusType DEFAULT_NAME = EcologicalStatusType.Spontaneous;
-    private static final EcologicalStatusType UPDATED_NAME = EcologicalStatusType.Cultivated;
+    private static final String DEFAULT_NAME = EcologicalStatusType.Spontaneous.toString();
+    private static final String UPDATED_NAME = EcologicalStatusType.Cultivated.toString();
 
     private static final String ENTITY_API_URL = "/api/ecological-statuses";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -57,7 +57,7 @@ class EcologicalStatusResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static EcologicalStatus createEntity(EntityManager em) {
-        EcologicalStatus ecologicalStatus = new EcologicalStatus().name(DEFAULT_NAME);
+        EcologicalStatus ecologicalStatus = new EcologicalStatus().name(DEFAULT_NAME.toString());
         return ecologicalStatus;
     }
 
@@ -68,7 +68,7 @@ class EcologicalStatusResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static EcologicalStatus createUpdatedEntity(EntityManager em) {
-        EcologicalStatus ecologicalStatus = new EcologicalStatus().name(UPDATED_NAME);
+        EcologicalStatus ecologicalStatus = new EcologicalStatus().name(UPDATED_NAME.toString());
         return ecologicalStatus;
     }
 
@@ -183,7 +183,7 @@ class EcologicalStatusResourceIT {
         EcologicalStatus updatedEcologicalStatus = ecologicalStatusRepository.findById(ecologicalStatus.getId()).get();
         // Disconnect from session so that the updates on updatedEcologicalStatus are not directly saved in db
         em.detach(updatedEcologicalStatus);
-        updatedEcologicalStatus.name(UPDATED_NAME);
+        updatedEcologicalStatus.name(UPDATED_NAME.toString());
 
         restEcologicalStatusMockMvc
             .perform(
@@ -270,7 +270,7 @@ class EcologicalStatusResourceIT {
         EcologicalStatus partialUpdatedEcologicalStatus = new EcologicalStatus();
         partialUpdatedEcologicalStatus.setId(ecologicalStatus.getId());
 
-        partialUpdatedEcologicalStatus.name(UPDATED_NAME);
+        partialUpdatedEcologicalStatus.name(UPDATED_NAME.toString());
 
         restEcologicalStatusMockMvc
             .perform(
@@ -299,7 +299,7 @@ class EcologicalStatusResourceIT {
         EcologicalStatus partialUpdatedEcologicalStatus = new EcologicalStatus();
         partialUpdatedEcologicalStatus.setId(ecologicalStatus.getId());
 
-        partialUpdatedEcologicalStatus.name(UPDATED_NAME);
+        partialUpdatedEcologicalStatus.name(UPDATED_NAME.toString());
 
         restEcologicalStatusMockMvc
             .perform(

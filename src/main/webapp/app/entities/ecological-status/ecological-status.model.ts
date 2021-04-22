@@ -2,11 +2,11 @@ import { EcologicalStatusType } from 'app/entities/enumerations/ecological-statu
 
 export interface IEcologicalStatus {
   id?: number;
-  name?: EcologicalStatusType;
+  name?: string;
 }
 
 export class EcologicalStatus implements IEcologicalStatus {
-  constructor(public id?: number, public name?: EcologicalStatusType) {}
+  constructor(public id?: number, public name?: string) {}
 }
 
 export function getEcologicalStatusIdentifier(ecologicalStatus: IEcologicalStatus): number | undefined {

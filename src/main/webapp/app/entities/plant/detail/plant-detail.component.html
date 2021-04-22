@@ -18,6 +18,14 @@
         <dd>
           <span>{{ plant.scientificName }}</span>
         </dd>
+        <dt><span>Picture</span></dt>
+        <dd>
+          <div *ngIf="plant.picture">
+            <a (click)="openFile(plant.picture, plant.pictureContentType)">
+              <img [src]="'data:' + plant.pictureContentType + ';base64,' + plant.picture" style="max-width: 100%" alt="plant image" />
+            </a>
+          </div>
+        </dd>
         <dt><span>Synonym</span></dt>
         <dd>
           <span>{{ plant.synonym }}</span>
@@ -34,15 +42,7 @@
         <dd>
           <span>{{ plant.voucherNumber }}</span>
         </dd>
-        <dt><span>Picture</span></dt>
-        <dd>
-          <div *ngIf="plant.picture">
-            <a (click)="openFile(plant.picture, plant.pictureContentType)">
-              <img [src]="'data:' + plant.pictureContentType + ';base64,' + plant.picture" style="max-width: 100%" alt="plant image" />
-            </a>
-            {{ plant.pictureContentType }}, {{ byteSize(plant.picture) }}
-          </div>
-        </dd>
+
         <dt><span>Botanical Description</span></dt>
         <dd>
           <span>{{ plant.botanicalDescription }}</span>
@@ -70,13 +70,13 @@
         <dt><span>Ecological Status</span></dt>
         <dd>
           <div *ngIf="plant.ecologicalStatus">
-            <a [routerLink]="['/ecological-status', plant.ecologicalStatus?.id, 'view']">{{ plant.ecologicalStatus?.id }}</a>
+            {{ plant.ecologicalStatus?.name }}
           </div>
         </dd>
         <dt><span>Family</span></dt>
         <dd>
           <div *ngIf="plant.family">
-            <a [routerLink]="['/family', plant.family?.id, 'view']">{{ plant.family?.id }}</a>
+            {{ plant.family?.name }}
           </div>
         </dd>
       </dl>
@@ -85,7 +85,7 @@
         <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
       </button>
 
-      <button type="button" [routerLink]="['/plant', plant.id, 'edit']" class="btn btn-primary">
+      <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="button" [routerLink]="['/plant', plant.id, 'edit']" class="btn btn-primary">
         <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
       </button>
     </div>

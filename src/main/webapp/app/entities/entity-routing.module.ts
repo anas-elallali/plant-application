@@ -19,6 +19,11 @@ import { RouterModule } from '@angular/router';
         data: { pageTitle: 'Plants' },
         loadChildren: () => import('./plant/plant.module').then(m => m.PlantModule),
       },
+      {
+        path: 'upload-excel',
+        data: { pageTitle: 'Upload Excel' },
+        loadChildren: () => import('./upload-excel/upload-excel.module').then(m => m.UploadExcelModule),
+      }
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),
   ],

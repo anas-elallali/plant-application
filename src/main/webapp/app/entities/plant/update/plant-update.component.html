@@ -185,7 +185,7 @@
               "
               *ngFor="let ecologicalStatusOption of ecologicalStatusesCollection; trackBy: trackEcologicalStatusById"
             >
-              {{ ecologicalStatusOption.id }}
+              {{ ecologicalStatusOption.name }}
             </option>
           </select>
         </div>
@@ -198,7 +198,7 @@
               [ngValue]="familyOption.id === editForm.get('family')!.value?.id ? editForm.get('family')!.value : familyOption"
               *ngFor="let familyOption of familiesSharedCollection; trackBy: trackFamilyById"
             >
-              {{ familyOption.id }}
+              {{ familyOption.name }}
             </option>
           </select>
         </div>

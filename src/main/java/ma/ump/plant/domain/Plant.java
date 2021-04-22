@@ -60,8 +60,8 @@ public class Plant implements Serializable {
     @Column(name = "major_phytochemicals")
     private String majorPhytochemicals;
 
-    @OneToOne
-    @JoinColumn(unique = true)
+    @ManyToOne
+    @JoinColumn()
     private EcologicalStatus ecologicalStatus;
 
     @ManyToOne(optional = false)

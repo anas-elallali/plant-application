@@ -9,12 +9,11 @@ import { PlantRoutingResolveService } from './plant-routing-resolve.service';
 
 const plantRoute: Routes = [
   {
-    path: '',
+    path: 'family/:id',
     component: PlantComponent,
     data: {
-      defaultSort: 'id,asc',
+      defaultSort: 'scientificName,asc',
     },
-    canActivate: [UserRouteAccessService],
   },
   {
     path: ':id/view',

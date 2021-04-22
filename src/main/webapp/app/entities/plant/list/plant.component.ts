@@ -14,6 +14,7 @@ import { DataUtils } from 'app/core/util/data-util.service';
 @Component({
   selector: 'jhi-plant',
   templateUrl: './plant.component.html',
+  styleUrls: ['./plant.component.scss'],
 })
 export class PlantComponent implements OnInit {
   plants?: IPlant[];
@@ -24,7 +25,11 @@ export class PlantComponent implements OnInit {
   predicate!: string;
   ascending!: boolean;
   ngbPaginationPage = 1;
+  familyId!: any;
+  familyName: any = "";
 
+  value = '';
+  searchKey = 'scientificName';
   constructor(
     protected plantService: PlantService,
     protected activatedRoute: ActivatedRoute,
@@ -34,25 +39,44 @@ export class PlantComponent implements OnInit {
   ) {}
 
   loadPage(page?: number, dontNavigate?: boolean): void {
+  console.log("AEL ",this.value, this.searchKey)
     this.isLoading = true;
     const pageToLoad: number = page ?? this.page ?? 1;
 
-    this.plantService
-      .query({
-        page: pageToLoad - 1,
-        size: this.itemsPerPage,
-        sort: this.sort(),
-      })
-      .subscribe(
-        (res: HttpResponse<IPlant[]>) => {
-          this.isLoading = false;
-          this.onSuccess(res.body, res.headers, pageToLoad, !dontNavigate);
-        },
-        () => {
-          this.isLoading = false;
-          this.onError();
+    this.activatedRoute.paramMap.subscribe(params => {
+      this.familyId  = params.get('id') ?  parseInt(params.get('id')!, 10) : null;
+
+      if(this.familyId){
+        let query: any = {
+          page: pageToLoad - 1,
+          size: this.itemsPerPage,
+          sort: this.sort(),
+          value: this.value,
+          searchKey: this.searchKey
+        };
+
+        if(this.searchKey && this.value) {
+          query = {
+            ...query,
+            value: this.value,
+            searchKey: this.searchKey
+          }
         }
-      );
+        this.plantService
+          .findAllByFamilyId(this.familyId, query)
+          .subscribe(
+            (res: HttpResponse<IPlant[]>) => {
+              this.isLoading = false;
+              this.onSuccess(res.body, res.headers, pageToLoad, !dontNavigate);
+            },
+            () => {
+              this.isLoading = false;
+              this.onError();
+            }
+          );
+      }
+
+    });
   }
 
   ngOnInit(): void {
@@ -108,8 +132,10 @@ export class PlantComponent implements OnInit {
   protected onSuccess(data: IPlant[] | null, headers: HttpHeaders, page: number, navigate: boolean): void {
     this.totalItems = Number(headers.get('X-Total-Count'));
     this.page = page;
+
+    this.familyName = (data && data.length > 0) ? data[0]?.family?.name : "";
     if (navigate) {
-      this.router.navigate(['/plant'], {
+      this.router.navigate(['/plant/family', this.familyId], {
         queryParams: {
           page: this.page,
           size: this.itemsPerPage,

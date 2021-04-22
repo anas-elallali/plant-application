@@ -3,7 +3,6 @@ package ma.ump.plant.domain;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
-import ma.ump.plant.domain.enumeration.EcologicalStatusType;
 
 /**
  * A EcologicalStatus.
@@ -19,9 +18,8 @@ public class EcologicalStatus implements Serializable {
     private Long id;
 
     @NotNull
-    @Enumerated(EnumType.STRING)
     @Column(name = "name", nullable = false)
-    private EcologicalStatusType name;
+    private String name;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -37,16 +35,16 @@ public class EcologicalStatus implements Serializable {
         return this;
     }
 
-    public EcologicalStatusType getName() {
+    public String getName() {
         return this.name;
     }
 
-    public EcologicalStatus name(EcologicalStatusType name) {
+    public EcologicalStatus name(String name) {
         this.name = name;
         return this;
     }
 
-    public void setName(EcologicalStatusType name) {
+    public void setName(String name) {
         this.name = name;
     }
 

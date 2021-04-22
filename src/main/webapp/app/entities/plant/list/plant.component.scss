@@ -1,0 +1,11 @@
+.header-table{
+  margin: 15px 0px 10px;
+  display: flex;
+  flex-direction: row;
+  .form-group{
+    margin: 0 5px;
+    input{
+      min-width: 250px;
+    }
+  }
+}

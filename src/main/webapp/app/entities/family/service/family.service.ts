@@ -13,6 +13,7 @@ export type EntityArrayResponseType = HttpResponse<IFamily[]>;
 @Injectable({ providedIn: 'root' })
 export class FamilyService {
   public resourceUrl = this.applicationConfigService.getEndpointFor('api/families');
+  public resourcePublicUrl = this.applicationConfigService.getEndpointFor('api/public/families');
 
   constructor(protected http: HttpClient, private applicationConfigService: ApplicationConfigService) {}
 
@@ -29,12 +30,12 @@ export class FamilyService {
   }
 
   find(id: number): Observable<EntityResponseType> {
-    return this.http.get<IFamily>(`${this.resourceUrl}/${id}`, { observe: 'response' });
+    return this.http.get<IFamily>(`${this.resourcePublicUrl}/${id}`, { observe: 'response' });
   }
 
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
-    return this.http.get<IFamily[]>(this.resourceUrl, { params: options, observe: 'response' });
+    return this.http.get<IFamily[]>(this.resourcePublicUrl, { params: options, observe: 'response' });
   }
 
   delete(id: number): Observable<HttpResponse<{}>> {

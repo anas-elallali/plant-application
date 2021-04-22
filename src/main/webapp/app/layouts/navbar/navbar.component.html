@@ -1,8 +1,9 @@
 <nav data-cy="navbar" class="navbar navbar-dark navbar-expand-md bg-dark">
   <a class="navbar-brand logo" routerLink="/" (click)="collapseNavbar()">
-    <span class="logo-img"></span>
-    <span class="navbar-title">PlantApplication</span>
-    <span class="navbar-version">{{ version }}</span>
+    <span class="logo-img">
+      <span class="plant-img"></span>
+    </span>
+    <span class="navbar-title">Plant Application</span>
   </a>
   <a
     class="navbar-toggler d-lg-none"
@@ -65,19 +66,6 @@
               <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
               <span>Ecological Status</span>
             </a>
-          </li>
-          <li>
-            <a
-              class="dropdown-item"
-              routerLink="plant"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-              (click)="collapseNavbar()"
-            >
-              <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-              <span>Plant</span>
-            </a>
-          </li>
           <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
         </ul>
       </li>
@@ -156,12 +144,6 @@
             <a class="dropdown-item" (click)="login()" id="login" data-cy="login">
               <fa-icon icon="sign-in-alt" [fixedWidth]="true"></fa-icon>
               <span>Sign in</span>
-            </a>
-          </li>
-          <li *ngSwitchCase="false">
-            <a class="dropdown-item" routerLink="account/register" routerLinkActive="active" (click)="collapseNavbar()" data-cy="register">
-              <fa-icon icon="user-plus" [fixedWidth]="true"></fa-icon>
-              <span>Register</span>
             </a>
           </li>
         </ul>
