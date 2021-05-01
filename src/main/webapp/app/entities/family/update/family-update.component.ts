@@ -7,6 +7,7 @@ import { finalize } from 'rxjs/operators';
 
 import { IFamily, Family } from '../family.model';
 import { FamilyService } from '../service/family.service';
+import {EventManager} from "app/core/util/event-manager.service";
 
 @Component({
   selector: 'jhi-family-update',
@@ -20,7 +21,10 @@ export class FamilyUpdateComponent implements OnInit {
     name: [null, [Validators.required]],
   });
 
-  constructor(protected familyService: FamilyService, protected activatedRoute: ActivatedRoute, protected fb: FormBuilder) {}
+  constructor(protected familyService: FamilyService,
+              private eventManager: EventManager,
+              protected activatedRoute: ActivatedRoute,
+              protected fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ family }) => {
@@ -37,8 +41,10 @@ export class FamilyUpdateComponent implements OnInit {
     const family = this.createFromForm();
     if (family.id !== undefined) {
       this.subscribeToSaveResponse(this.familyService.update(family));
+      this.eventManager.broadcast('FamiliesList')
     } else {
       this.subscribeToSaveResponse(this.familyService.create(family));
+      this.eventManager.broadcast('FamiliesList')
     }
   }
 
