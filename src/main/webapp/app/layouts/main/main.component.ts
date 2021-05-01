@@ -3,8 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { Router, ActivatedRouteSnapshot, NavigationEnd, NavigationError } from '@angular/router';
 
 import { AccountService } from 'app/core/auth/account.service';
-import {faFan, faUpload} from "@fortawesome/free-solid-svg-icons";
-import {HttpClient} from "@angular/common/http";
+import {faFan, faUpload, faAddressCard, faMapPin, faChartBar, faLink, faBookReader} from "@fortawesome/free-solid-svg-icons";
 import {FamilyService} from "app/entities/family/service/family.service";
 import {IFamily} from "app/entities/family/family.model";
 
@@ -16,6 +15,11 @@ import {IFamily} from "app/entities/family/family.model";
 export class MainComponent implements OnInit {
   faFan= faFan;
   faUpload = faUpload;
+  faAddressCard = faAddressCard;
+  faMapPin = faMapPin;
+  faChartBar = faChartBar;
+  faLink = faLink;
+  faBookReader = faBookReader;
   panelOpenState = false;
 
   families: IFamily[] = [];

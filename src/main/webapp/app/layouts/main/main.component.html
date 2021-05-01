@@ -9,6 +9,14 @@
   <div class="row p-0 m-0">
     <div class="side-bar col-3">
       <mat-nav-list>
+        <mat-list-item routerLink="/">
+          <fa-icon mat-list-icon [icon]="faAddressCard"></fa-icon>
+          <h4 mat-line >Background</h4>
+        </mat-list-item>
+        <mat-list-item routerLink="/">
+          <fa-icon mat-list-icon [icon]="faMapPin"></fa-icon>
+          <h4 mat-line >North Eastern Morocco</h4>
+        </mat-list-item>
         <mat-list-item *jhiHasAnyAuthority="'ROLE_ADMIN'" routerLink="/upload-excel">
           <fa-icon mat-list-icon [icon]="faUpload"></fa-icon>
           <h4 mat-line >Upload Data (Excel)</h4>
@@ -35,6 +43,20 @@
         </mat-nav-list>
 
       </mat-expansion-panel>
+      <mat-nav-list>
+        <mat-list-item routerLink="/">
+          <fa-icon mat-list-icon [icon]="faChartBar"></fa-icon>
+          <h4 mat-line >Graphics</h4>
+        </mat-list-item>
+        <mat-list-item routerLink="/">
+          <fa-icon mat-list-icon [icon]="faLink"></fa-icon>
+          <h4 mat-line >Useful Links</h4>
+        </mat-list-item>
+        <mat-list-item routerLink="/">
+          <fa-icon mat-list-icon [icon]="faBookReader"></fa-icon>
+          <h4 mat-line >Publications</h4>
+        </mat-list-item>
+      </mat-nav-list>
     </div>
 
     <div class="offset-sm-3 col-9 pages-content">

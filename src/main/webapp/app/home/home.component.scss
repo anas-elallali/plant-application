@@ -11,3 +11,35 @@ div {
 h2{
   margin: 10px auto 20px;
 }
+.header-item{
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  img {
+    max-width: 100px;
+  }
+}
+
+.title-box{
+  width: 80%;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  margin: 10px auto;
+  padding: 10px 5px;
+  background: #40c4456e;
+}
+
+.images-box{
+  justify-content: center;
+  display: flex;
+  margin-top: 20px;
+  & > div {
+    max-width: 22%;
+    img{
+      max-width: 100%;
+      height: 168px;
+
+    }
+  }
+}
