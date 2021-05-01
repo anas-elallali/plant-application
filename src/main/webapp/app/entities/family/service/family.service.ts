@@ -35,7 +35,11 @@ export class FamilyService {
 
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
-    return this.http.get<IFamily[]>(this.resourcePublicUrl, { params: options, observe: 'response' });
+    return this.http.get<IFamily[]>(this.resourceUrl, { params: options, observe: 'response' });
+  }
+
+  getFamilies(): Observable<EntityArrayResponseType> {
+    return this.http.get<IFamily[]>(this.resourcePublicUrl, { observe: 'response' });
   }
 
   delete(id: number): Observable<HttpResponse<{}>> {

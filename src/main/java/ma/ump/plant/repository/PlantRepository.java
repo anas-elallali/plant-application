@@ -6,6 +6,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 /**
  * Spring Data SQL repository for the Plant entity.
  */
@@ -13,6 +15,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PlantRepository extends JpaRepository<Plant, Long> {
     Page<Plant> findByFamilyId(Long id, Pageable pageable);
+
+    Optional<Plant> findTop1ByVoucherNumber(String voucherNumber);
 
     Page<Plant> findByFamilyIdAndLocalNameContainingIgnoreCase(Long id, String localName,Pageable pageable);
 

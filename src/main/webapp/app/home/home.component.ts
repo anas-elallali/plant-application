@@ -17,14 +17,6 @@ import {FamilyService} from "app/entities/family/service/family.service";
 })
 export class HomeComponent implements OnInit, OnDestroy {
 
-  faFan= faFan;
-  faUpload = faUpload;
-  panelOpenState = false;
-
-  typesOfShoes: any[] = [];
-
-  fileName = '';
-
   account: Account | null = null;
   authSubscription?: Subscription;
 
@@ -35,10 +27,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.authSubscription = this.accountService.getAuthenticationState().subscribe(account => (this.account = account));
-    this.familyService.query().subscribe((res: any) => {
-      const familieObj: IFamily[] = res.body;
-      this.typesOfShoes = familieObj.map(f => f.name);
-    })
   }
 
   isAuthenticated(): boolean {
@@ -52,24 +40,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.authSubscription) {
       this.authSubscription.unsubscribe();
-    }
-  }
-
-  onFileSelected(event: any): void {
-
-    const file: File = event.target.files[0];
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    if (file) {
-
-      this.fileName = file.name;
-
-      const formData = new FormData();
-
-      formData.append("file", file);
-
-      const upload$ = this.http.post("api/import", formData);
-
-      upload$.subscribe();
     }
   }
 }

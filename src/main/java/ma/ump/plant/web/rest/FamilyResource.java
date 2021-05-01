@@ -155,12 +155,18 @@ public class FamilyResource {
      * @param pageable the pagination information.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of families in body.
      */
-    @GetMapping("/public/families")
+    @GetMapping("/families")
     public ResponseEntity<List<Family>> getAllFamilies(Pageable pageable) {
         log.debug("REST request to get a page of Families");
         Page<Family> page = familyRepository.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    @GetMapping("/public/families")
+    public ResponseEntity<List<Family>> getAllFamilies() {
+        List<Family> Families = familyRepository.findAllByOrderByNameAsc();
+        return ResponseEntity.ok().body(Families);
     }
 
     /**

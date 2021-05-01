@@ -4,6 +4,7 @@ import ma.ump.plant.domain.Family;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -14,4 +15,7 @@ import java.util.Optional;
 public interface FamilyRepository extends JpaRepository<Family, Long> {
 
     Optional<Family> findTop1ByName(String name);
+
+    List<Family> findAllByOrderByNameAsc();
+
 }

@@ -45,14 +45,14 @@ public class ExcelResource {
         XSSFWorkbook workbook = new XSSFWorkbook(reapExcelDataFile.getInputStream());
         XSSFSheet worksheet = workbook.getSheetAt(0);
 
-        for(int i = 2; i < worksheet.getPhysicalNumberOfRows(); i++) {
+        for(int i = 1; i < worksheet.getPhysicalNumberOfRows(); i++) {
 
             XSSFRow row = worksheet.getRow(i);
             String familyNameString = row.getCell(0).getStringCellValue();
             if(familyNameString != null && familyNameString.trim().length() > 0) {
 
                 Optional<Family> familyOp = familyRepository.findTop1ByName(familyNameString.trim());
-                Family family = null;
+                Family family;
                 if(familyOp.isPresent()){
                     family = familyOp.get();
                 }
@@ -60,32 +60,44 @@ public class ExcelResource {
                     family = familyRepository.save(new Family().name(familyNameString));
                 }
 
-                Plant plant = new Plant();
-                plant.scientificName(row.getCell(1).getStringCellValue())
-                    .family(family)
-                    .synonym(row.getCell(2).getStringCellValue())
-                    .localName(row.getCell(3).getStringCellValue())
-                    .englishName(row.getCell(4).getStringCellValue())
-                    .voucherNumber(row.getCell(5).getStringCellValue())
-                    .botanicalDescription(row.getCell(7).getStringCellValue())
-                    .therapeuticUses(row.getCell(8).getStringCellValue())
-                    .usedParts(row.getCell(9).getStringCellValue())
-                    .preparation(row.getCell(10).getStringCellValue())
-                    .pharmacologicalActivities(row.getCell(11).getStringCellValue())
-                    .majorPhytochemicals(row.getCell(12).getStringCellValue());
+                String voucherNumber = row.getCell(5).getStringCellValue();
 
-                String ecologicalStatusString = row.getCell(6).getStringCellValue() ;
+                if(voucherNumber != null && voucherNumber.trim().length() > 0){
+                    Plant plant;
+                    Optional<Plant> palntOp = plantRepository.findTop1ByVoucherNumber(voucherNumber.trim());
 
-                if(ecologicalStatusString != null && ecologicalStatusString.trim().length() > 0){
-                    Optional<EcologicalStatus> ecologicalStatusOp = ecologicalStatusRepository.findTop1ByName(ecologicalStatusString.trim());
-                    if(ecologicalStatusOp.isPresent()){
-                        plant.setEcologicalStatus(ecologicalStatusOp.get());
+                    if(palntOp.isPresent()){
+                        plant = palntOp.get();
                     }
+                    else{
+                        plant = new Plant();
+                    }
+
+                    plant.scientificName(row.getCell(1).getStringCellValue())
+                        .family(family)
+                        .synonym(row.getCell(2).getStringCellValue())
+                        .localName(row.getCell(3).getStringCellValue())
+                        .englishName(row.getCell(4).getStringCellValue())
+                        .voucherNumber(voucherNumber.trim())
+                        .botanicalDescription(row.getCell(7).getStringCellValue())
+                        .therapeuticUses(row.getCell(8).getStringCellValue())
+                        .usedParts(row.getCell(9).getStringCellValue())
+                        .preparation(row.getCell(10).getStringCellValue())
+                        .pharmacologicalActivities(row.getCell(11).getStringCellValue())
+                        .majorPhytochemicals(row.getCell(12).getStringCellValue());
+
+                    String ecologicalStatusString = row.getCell(6).getStringCellValue() ;
+
+                    if(ecologicalStatusString != null && ecologicalStatusString.trim().length() > 0){
+                        Optional<EcologicalStatus> ecologicalStatusOp = ecologicalStatusRepository.findTop1ByName(ecologicalStatusString.trim());
+                        if(ecologicalStatusOp.isPresent()){
+                            plant.setEcologicalStatus(ecologicalStatusOp.get());
+                        }
+                    }
+
+                    plantRepository.save(plant);
                 }
 
-
-
-                plantRepository.save(plant);
             }
         }
 

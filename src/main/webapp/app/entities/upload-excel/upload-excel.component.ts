@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {log} from "util";
+import {EventManager, EventWithContent} from "app/core/util/event-manager.service";
+import {AlertError} from "app/shared/alert/alert-error.model";
 
 @Component({
   selector: 'jhi-upload-excel',
@@ -10,7 +12,7 @@ import {log} from "util";
 export class UploadExcelComponent {
   files: any[] = [];
 
-  constructor(protected http: HttpClient) {
+  constructor(protected http: HttpClient, private eventManager: EventManager) {
   }
 
   /**
@@ -50,7 +52,10 @@ export class UploadExcelComponent {
 
       const upload$ = this.http.post("api/import", formData);
 
-      upload$.subscribe(res => this.files[0].progress = 100, err => this.files[0].progress = -1);
+      upload$.subscribe(res => {
+        this.files[0].progress = 100;
+        this.eventManager.broadcast('FamiliesList')
+      }, err => this.files[0].progress = -1);
 
     }
   }
